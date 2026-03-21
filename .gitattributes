@@ -13,7 +13,8 @@ body {
     text-align: center;
 
     /* 🔥 FONDO (luego cambiamos con tus imágenes) */
-background: url('Ochi.jpeg') no-repeat center center/cover;
+background: url('Ochi.jpeg') no-repeat center center;
+background-size: cover;
 }
 
 /* Fondo oscuro para que se lea */
