@@ -12,16 +12,11 @@ body {
     color: white;
     text-align: center;
 
-    /* 🌻 FONDO CORREGIDO */
-    background: url('Ochi.jpeg') no-repeat center center;
+    /* 🌻 SOLO IMAGEN DE FONDO */
+    background-image: url("Ochi.jpeg");
     background-size: cover;
-}
-
-/* Fondo oscuro suave */
-.overlay {
-    background: rgba(0,0,0,0.3);
-    height: 100vh;
-    padding-top: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 h1 {
