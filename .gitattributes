@@ -121,7 +121,7 @@ body {
 
 <body>
 
-<div class="start-btn" onclick="iniciar()">💛 Toca aquí, amor 💛</div>
+<div class="start-btn" onclick="iniciar()">💛 Toca aquí 💛</div>
 
 <audio id="musica" loop>
   <source src="pielcanela.mp3" type="audio/mpeg">
