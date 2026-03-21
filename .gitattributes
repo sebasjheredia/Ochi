@@ -165,17 +165,12 @@ Flores Amarillas para ti mi amor 🌻❤️
 // TEXTOS
 let texto1 = "Tu mensaje bonito aquí...";
 
-let texto2 = `Mi amor, hoy es un día especial y no quería que pasara ni un minuto más sin recordarte lo inmensamente feliz que me haces.
-
-Te preparé este detalle con todo mi corazón porque, para mí, tú eres la luz que ilumina absolutamente todo en mi vida.
-
-Estas flores amarillas son solo un reflejo de esa alegría que me das desde el primer momento en que estamos juntos.
-
-Me encanta cada segundo que compartimos, desde las risas más tontas hasta los momentos en los que simplemente estamos acostaditos abrazados el uno al lado del otro.
-
-Tenerte a mi lado es el regalo más grande que la vida me ha dado.
-
-Quiero que sepas que te amo con todo mi corazón, hoy y siempre ❤️`;
+let texto2 = `Mi amor, hoy es un día especial y no quería que pasara ni un minuto más sin recordarte lo inmensamente feliz que me haces. Te preparé este detalle con todo mi corazón porque, para mí, tú eres la luz que ilumina absolutamente todo en mi vida. Estas flores amarillas son solo un reflejo de esa alegría que me das desde el primer momento en que estamos juntos. 
+Me encanta cada segundo que compartimos, desde las risas más tontas hasta los momentos en los que simplemente estamos acostaditos abrazados el uno al lado del otro. Tenerte a mi lado es el regalo más grande que la vida me ha dado; me fascina tu forma de ser, esa vibra tan bella que tienes (Ochi vibra), cómo me miras y esa esencia única que tienes que me hace elegirte una y mil veces más. Estar contigo es mi lugar favorito en el mundo y quiero que sepas que valoro cada instante que pasamos construyendo nuestra historia.
+Quiero que estas flores te recuerden que, mientras yo esté a tu lado, nunca te van a faltar los detallitos, las golosinas (Dulces o saladas), la comidita, los viajes locos, los mimos y ese amor que siempre busca sacarte una sonrisa, es que me encanta hacerte reír... 
+Me hace muy feliz consentirte y demostrarte lo mucho que te amo, porque te mereces eso y mucho más. Eres mi prioridad, mi novia hermosa y la mujer que me motiva a ser mejor cada día.
+Gracias por caminar conmigo, por compartir tu tiempo y por dejarme amarte de esta forma tan real y bonita. Disfruta mucho de tus flores, mi reina, que son tan brillantes y hermosas como tú.
+Te amo con todo mi corazón, hoy y siempre. ❤️`;
 
 // ESCRITURA
 function escribir(id,texto){
