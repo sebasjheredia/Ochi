@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti 💛</title>
+<style>
+    body {
+        background: linear-gradient(#2b0040, #5a0080);
+        color: white;
+        text-align: center;
+        font-family: Arial;
+        padding: 50px;
+    }
+    h1 {
+        color: yellow;
+    }
+    .flower {
+        font-size: 80px;
+    }
+</style>
+</head>
+<body>
+
+<div class="flower">🌻🌻🌻</div>
+
+<h1>Para ti, mi amor 💛</h1>
+
+<p>
+Como un girasol que busca el sol,<br>
+yo siempre te busco a ti.<br><br>
+
+Eres mi alegría, mi paz,<br>
+y la razón de muchas sonrisas.<br><br>
+
+Te hice este pequeño detalle<br>
+porque te quiero mucho 🌻
+</p>
+
+</body>
+</html>
