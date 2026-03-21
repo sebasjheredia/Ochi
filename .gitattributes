@@ -12,7 +12,12 @@ body {
     font-family: Arial;
     color: white;
     text-align: center;
-    background: url("Ochi.jpeg") no-repeat center center/cover;
+
+    /* 🔥 FONDO SIN ZOOM RARO */
+    background: url("Ochi.jpeg") no-repeat center center;
+    background-size: contain;
+    background-color: black;
+
     overflow-x: hidden;
 }
 
@@ -47,6 +52,7 @@ body {
     padding: 20px;
 }
 
+/* TEXTO */
 .box {
     width: 40%;
     background: rgba(0,0,0,0.4);
@@ -54,23 +60,25 @@ body {
     border-radius: 15px;
 }
 
+/* VIDEO */
 .video-box {
     width: 40%;
 }
 
-/* 🌻🌹💖 ANIMACIONES */
-.fall {
+/* 🌻🌹💖 PARTÍCULAS */
+.particle {
     position: fixed;
     top: -10%;
     animation: caer linear infinite;
+    opacity: 0.8;
 }
 
 @keyframes caer {
-    0% { transform: translateY(-10%) translateX(0); opacity:1;}
-    100% { transform: translateY(110vh) translateX(50px); opacity:0;}
+    0% { transform: translateY(-10%) translateX(0) rotate(0deg); }
+    100% { transform: translateY(110vh) translateX(30px) rotate(360deg); }
 }
 
-/* 📸 GALERÍA TIPO INSTAGRAM */
+/* 📸 GALERÍA CENTRADA */
 .gallery {
     width: 300px;
     height: 300px;
@@ -78,14 +86,17 @@ body {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
 }
 
 .gallery img {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 🔥 NO RECORTA */
     object-position: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
@@ -142,7 +153,7 @@ Flores Amarillas para ti mi amor 🌻❤️
     </div>
 
     <div class="video-box">
-        <video controls width="100%">
+        <video id="video" controls width="100%">
             <source src="video.mp4" type="video/mp4">
         </video>
     </div>
@@ -154,7 +165,6 @@ Flores Amarillas para ti mi amor 🌻❤️
 <script>
 // TEXTOS
 let texto1 = `Eres el amor de mi vida y mi sol de cada mañana. ¡Feliz día de las flores amarillas!`;
-
 let texto2 = `Mi amor, hoy es un día especial y no quería que pasara ni un minuto más sin recordarte lo inmensamente feliz que me haces. 
 Te preparé este detalle con todo mi corazón porque, para mí, tú eres la luz que ilumina absolutamente todo en mi vida. 
 Estas flores amarillas son solo un reflejo de esa alegría que me das desde el primer momento en que estamos juntos. 
@@ -165,6 +175,7 @@ Quiero que estas flores te recuerden que, mientras yo esté a tu lado, nunca te 
 Me hace muy feliz consentirte y demostrarte lo mucho que te amo, porque te mereces eso y mucho más. Eres mi prioridad, mi novia hermosa y la mujer que me motiva a ser mejor cada día.
 Gracias por caminar conmigo, por compartir tu tiempo y por dejarme amarte de esta forma tan real y bonita. Disfruta mucho de tus flores, mi reina, que son tan brillantes y hermosas como tú.
 Te amo con todo mi corazón, hoy y siempre. ❤️`;
+
 
 // ESCRITURA
 function escribir(id,texto){
@@ -180,32 +191,54 @@ function escribir(id,texto){
     t();
 }
 
-// 🌻🌹💖 ANIMACIONES
-function crearElementos(){
+// 🌻🌹💖 PARTÍCULAS MÁS REALISTAS
+function crearParticulas(){
     let emojis=["🌻","🌹","💖"];
-    for(let i=0;i<40;i++){
+    for(let i=0;i<50;i++){
         let e=document.createElement("div");
-        e.classList.add("fall");
+        e.classList.add("particle");
         e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
         e.style.left=Math.random()*100+"vw";
-        e.style.fontSize=(20+Math.random()*30)+"px";
-        e.style.animationDuration=(5+Math.random()*5)+"s";
+        e.style.fontSize=(15+Math.random()*25)+"px";
+        e.style.animationDuration=(6+Math.random()*6)+"s";
+        e.style.opacity=Math.random();
+
         document.body.appendChild(e);
     }
 }
 
-// 📸 GALERÍA JS
+// 📸 GALERÍA
 let index = 0;
-let images = document.querySelectorAll(".gallery img");
+let images;
 
-function cambiarImagen() {
-    images.forEach(img => img.classList.remove("active"));
-    images[index].classList.add("active");
+function iniciarGaleria(){
+    images = document.querySelectorAll(".gallery img");
 
-    index++;
-    if(index >= images.length){
-        index = 0;
+    function cambiar(){
+        images.forEach(img => img.classList.remove("active"));
+        images[index].classList.add("active");
+        index = (index + 1) % images.length;
     }
+
+    cambiar();
+    setInterval(cambiar, 3000);
+}
+
+// 🎵 MÚSICA CON FADE IN
+function fadeInAudio(audio){
+    audio.volume = 0;
+    audio.play().catch(()=>{});
+
+    let vol = 0;
+    let interval = setInterval(()=>{
+        if(vol < 1){
+            vol += 0.02;
+            audio.volume = vol;
+        } else {
+            clearInterval(interval);
+        }
+    }, 200);
 }
 
 // INICIO
@@ -214,20 +247,18 @@ function iniciar(){
     document.getElementById("contenido").style.display = "block";
 
     let audio = document.getElementById("musica");
-    if(audio){
-        audio.play().catch(()=>{});
+    fadeInAudio(audio);
+
+    let video = document.getElementById("video");
+    if(video){
+        video.play().catch(()=>{});
     }
 
-    crearElementos();
+    crearParticulas();
     escribir("text1", texto1);
+    setTimeout(()=>escribir("text2", texto2),2000);
 
-    setTimeout(()=>{
-        escribir("text2", texto2);
-    },2000);
-
-    // iniciar galería
-    cambiarImagen();
-    setInterval(cambiarImagen, 3000);
+    iniciarGaleria();
 }
 </script>
 
