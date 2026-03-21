@@ -58,7 +58,7 @@ body {
     width: 40%;
 }
 
-/* FLORES Y CORAZONES */
+/* 🌻🌹💖 ANIMACIONES */
 .fall {
     position: fixed;
     top: -10%;
@@ -70,42 +70,29 @@ body {
     100% { transform: translateY(110vh) translateX(50px); opacity:0;}
 }
 
-/* GALERÍA */
+/* 📸 GALERÍA TIPO INSTAGRAM */
 .gallery {
     width: 300px;
-    height: 300px; /* 🔲 CUADRADO */
-    margin: 30px auto; /* centrado */
+    height: 300px;
+    margin: 30px auto;
     position: relative;
-    overflow: hidden;
     border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(255,255,255,0.3);
 }
 
 .gallery img {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* ✅ NO RECORTA */
+    object-fit: cover;
     object-position: center;
-    background: rgba(0,0,0,0.3); /* fondo si sobra espacio */
     opacity: 0;
-    animation: slide 32s infinite;
+    transition: opacity 1.5s ease-in-out;
 }
 
-.gallery img:nth-child(1) {animation-delay:0s;}
-.gallery img:nth-child(2) {animation-delay:4s;}
-.gallery img:nth-child(3) {animation-delay:8s;}
-.gallery img:nth-child(4) {animation-delay:12s;}
-.gallery img:nth-child(5) {animation-delay:16s;}
-.gallery img:nth-child(6) {animation-delay:20s;}
-.gallery img:nth-child(7) {animation-delay:24s;}
-.gallery img:nth-child(8) {animation-delay:28s;}
-
-@keyframes slide {
-    0% {opacity:0;}
-    5% {opacity:1;}
-    20% {opacity:1;}
-    25% {opacity:0;}
-    100% {opacity:0;}
+.gallery img.active {
+    opacity: 1;
 }
 
 /* RESPONSIVE */
@@ -166,10 +153,11 @@ Flores Amarillas para ti mi amor 🌻❤️
 
 <script>
 // TEXTOS
-let texto1 = "Tu mensaje bonito aquí...";
+let texto1 = `Eres el amor de mi vida y mi sol de cada mañana. ¡Feliz día de las flores amarillas!`;
 
 let texto2 = `Mi amor, hoy es un día especial y no quería que pasara ni un minuto más sin recordarte lo inmensamente feliz que me haces. 
-Te preparé este detalle con todo mi corazón porque, para mí, tú eres la luz que ilumina absolutamente todo en mi vida. Estas flores amarillas son solo un reflejo de esa alegría que me das desde el primer momento en que estamos juntos. 
+Te preparé este detalle con todo mi corazón porque, para mí, tú eres la luz que ilumina absolutamente todo en mi vida. 
+Estas flores amarillas son solo un reflejo de esa alegría que me das desde el primer momento en que estamos juntos. 
 Me encanta cada segundo que compartimos, desde las risas más tontas hasta los momentos en los que simplemente estamos acostaditos abrazados el uno al lado del otro. 
 Tenerte a mi lado es el regalo más grande que la vida me ha dado; me fascina tu forma de ser, esa vibra tan bella que tienes (Ochi vibra), cómo me miras y esa esencia única que tienes que me hace elegirte una y mil veces más. 
 Estar contigo es mi lugar favorito en el mundo y quiero que sepas que valoro cada instante que pasamos construyendo nuestra historia.
@@ -186,13 +174,13 @@ function escribir(id,texto){
         if(i<texto.length){
             el.innerHTML+=texto[i];
             i++;
-            setTimeout(t,20);
+            setTimeout(t,10);
         }
     }
     t();
 }
 
-// ANIMACIONES
+// 🌻🌹💖 ANIMACIONES
 function crearElementos(){
     let emojis=["🌻","🌹","💖"];
     for(let i=0;i<40;i++){
@@ -206,7 +194,21 @@ function crearElementos(){
     }
 }
 
-// INICIO (CORREGIDO)
+// 📸 GALERÍA JS
+let index = 0;
+let images = document.querySelectorAll(".gallery img");
+
+function cambiarImagen() {
+    images.forEach(img => img.classList.remove("active"));
+    images[index].classList.add("active");
+
+    index++;
+    if(index >= images.length){
+        index = 0;
+    }
+}
+
+// INICIO
 function iniciar(){
     document.querySelector(".start-btn").style.display = "none";
     document.getElementById("contenido").style.display = "block";
@@ -222,6 +224,10 @@ function iniciar(){
     setTimeout(()=>{
         escribir("text2", texto2);
     },2000);
+
+    // iniciar galería
+    cambiarImagen();
+    setInterval(cambiarImagen, 3000);
 }
 </script>
 
