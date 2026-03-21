@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title> Para mi Princesita 🌻❤️ </title>
+<title>Para mi Princesita 🌻❤️</title>
 
 <style>
 body {
@@ -12,13 +12,14 @@ body {
     color: white;
     text-align: center;
 
-    /* 🔥 FONDO (luego cambiamos con tus imágenes) */
-    bbackground: url('Ochi.jpeg') no-repeat center center/cover;
+    /* 🌻 FONDO CORREGIDO */
+    background: url('Ochi.jpeg') no-repeat center center;
+    background-size: cover;
 }
 
-/* Fondo oscuro para que se lea */
+/* Fondo oscuro suave */
 .overlay {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.3);
     height: 100vh;
     padding-top: 50px;
 }
@@ -47,11 +48,8 @@ h1 {
 }
 
 /* Cursor tipo escritura */
-.cursor {
-    display: inline-block;
-    background: white;
-    width: 2px;
-    height: 20px;
+.cursor::after {
+    content: "|";
     animation: blink 1s infinite;
 }
 
@@ -69,7 +67,7 @@ h1 {
 
 <div class="flower">🌻🌻🌻</div>
 
-<h1> Mi niña, Tus Flores Amarillas🌻❤️</h1>
+<h1>Mi niña, tus flores amarillas 🌻❤️</h1>
 
 <!-- 🎵 MÚSICA -->
 <audio controls autoplay loop>
@@ -80,12 +78,12 @@ h1 {
 
     <!-- TEXTO 1 -->
     <div class="box">
-        <p id="text1"></p>
+        <p id="text1" class="cursor"></p>
     </div>
 
     <!-- TEXTO 2 -->
     <div class="box">
-        <p id="text2"></p>
+        <p id="text2" class="cursor"></p>
     </div>
 
 </div>
@@ -93,15 +91,17 @@ h1 {
 </div>
 
 <script>
-// ✍️ TEXTO (tú lo cambias luego)
-let texto1 = "Escribe aquí lo que quieras para ella...";
-let texto2 = "Otra parte del mensaje bonito...";
+// ✍️ CAMBIA AQUÍ TUS FRASES
+let texto1 = "Aquí escribes tu primer mensaje bonito para ella...";
+let texto2 = "Aquí va la segunda parte de tu mensaje romántico...";
 
 function escribirTexto(id, texto, velocidad) {
     let i = 0;
+    let elemento = document.getElementById(id);
+
     function escribir() {
         if (i < texto.length) {
-            document.getElementById(id).innerHTML += texto.charAt(i);
+            elemento.innerHTML += texto.charAt(i);
             i++;
             setTimeout(escribir, velocidad);
         }
@@ -109,10 +109,11 @@ function escribirTexto(id, texto, velocidad) {
     escribir();
 }
 
-// Ejecutar
-escribirTexto("text1", texto1, 50);
+// Ejecutar animación
+escribirTexto("text1", texto1, 40);
+
 setTimeout(() => {
-    escribirTexto("text2", texto2, 50);
+    escribirTexto("text2", texto2, 40);
 }, 2000);
 
 </script>
