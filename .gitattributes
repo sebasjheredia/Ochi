@@ -13,10 +13,9 @@ body {
     color: white;
     text-align: center;
 
-    /* 🔥 FONDO SIN ZOOM RARO */
-    background: url("Ochi.jpeg") no-repeat center center;
-    background-size: contain;
-    background-color: black;
+    /* 🔥 FONDO FINAL CORREGIDO */
+    background: url("Ochi.jpeg") no-repeat center center fixed;
+    background-size: cover;
 
     overflow-x: hidden;
 }
@@ -78,7 +77,7 @@ body {
     100% { transform: translateY(110vh) translateX(30px) rotate(360deg); }
 }
 
-/* 📸 GALERÍA CENTRADA */
+/* 📸 GALERÍA */
 .gallery {
     width: 300px;
     height: 300px;
@@ -89,14 +88,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: black;
 }
 
 .gallery img {
     position: absolute;
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 🔥 NO RECORTA */
+    object-fit: contain; /* 🔥 centradas sin recorte */
     object-position: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
@@ -176,7 +174,6 @@ Me hace muy feliz consentirte y demostrarte lo mucho que te amo, porque te merec
 Gracias por caminar conmigo, por compartir tu tiempo y por dejarme amarte de esta forma tan real y bonita. Disfruta mucho de tus flores, mi reina, que son tan brillantes y hermosas como tú.
 Te amo con todo mi corazón, hoy y siempre. ❤️`;
 
-
 // ESCRITURA
 function escribir(id,texto){
     let i=0;
@@ -191,7 +188,7 @@ function escribir(id,texto){
     t();
 }
 
-// 🌻🌹💖 PARTÍCULAS MÁS REALISTAS
+// 🌻🌹💖 PARTÍCULAS
 function crearParticulas(){
     let emojis=["🌻","🌹","💖"];
     for(let i=0;i<50;i++){
@@ -225,7 +222,7 @@ function iniciarGaleria(){
     setInterval(cambiar, 3000);
 }
 
-// 🎵 MÚSICA CON FADE IN
+// 🎵 MÚSICA SUAVE
 function fadeInAudio(audio){
     audio.volume = 0;
     audio.play().catch(()=>{});
