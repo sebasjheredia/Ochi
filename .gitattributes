@@ -12,15 +12,26 @@ body {
     color: white;
     text-align: center;
 
-    /* 🌻 SOLO IMAGEN DE FONDO */
     background-image: url("Ochi.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* 🌸 Animación de entrada */
+.fade-in {
+    animation: aparecer 2s ease-in-out;
+}
+
+@keyframes aparecer {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 h1 {
     color: yellow;
+    animation: aparecer 3s ease-in-out;
 }
 
 .container {
@@ -32,17 +43,39 @@ h1 {
 
 .box {
     width: 40%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.4);
     border-radius: 15px;
     padding: 20px;
     min-height: 200px;
+    opacity: 0;
+    animation: aparecer 2s forwards;
+    animation-delay: 2s;
 }
 
 .flower {
     font-size: 60px;
 }
 
-/* Cursor tipo escritura */
+/* 🌻 FLORES CAYENDO */
+.falling {
+    position: fixed;
+    top: -10%;
+    font-size: 24px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% {
+        transform: translateY(-10%) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) translateX(50px);
+        opacity: 0;
+    }
+}
+
+/* Cursor escritura */
 .cursor::after {
     content: "|";
     animation: blink 1s infinite;
@@ -53,30 +86,44 @@ h1 {
     50% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+/* 🎵 BOTÓN INICIO */
+.start-btn {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: yellow;
+    color: black;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+}
 </style>
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="start-btn" onclick="iniciar()">💛 Toca aquí 💛</div>
+
+<audio id="musica" loop>
+  <source src="pielcanela.mp3" type="audio/mpeg">
+</audio>
+
+<div id="contenido" class="fade-in" style="display:none;">
 
 <div class="flower">🌻🌻🌻</div>
 
 <h1>Mi niña, tus flores amarillas 🌻❤️</h1>
 
-<!-- 🎵 MÚSICA -->
-<audio controls autoplay loop>
-  <source src="pielcanela.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
 
-    <!-- TEXTO 1 -->
     <div class="box">
         <p id="text1" class="cursor"></p>
     </div>
 
-    <!-- TEXTO 2 -->
     <div class="box">
         <p id="text2" class="cursor"></p>
     </div>
@@ -86,10 +133,11 @@ h1 {
 </div>
 
 <script>
-// ✍️ CAMBIA AQUÍ TUS FRASES
+// ✍️ TUS FRASES
 let texto1 = "Aquí escribes tu primer mensaje bonito para ella...";
 let texto2 = "Aquí va la segunda parte de tu mensaje romántico...";
 
+// ✨ EFECTO ESCRITURA SUAVE
 function escribirTexto(id, texto, velocidad) {
     let i = 0;
     let elemento = document.getElementById(id);
@@ -104,13 +152,36 @@ function escribirTexto(id, texto, velocidad) {
     escribir();
 }
 
-// Ejecutar animación
-escribirTexto("text1", texto1, 40);
+// 🌻 GENERAR FLORES
+function crearFlores() {
+    for (let i = 0; i < 20; i++) {
+        let flor = document.createElement("div");
+        flor.classList.add("falling");
+        flor.innerHTML = "🌻";
 
-setTimeout(() => {
-    escribirTexto("text2", texto2, 40);
-}, 2000);
+        flor.style.left = Math.random() * 100 + "vw";
+        flor.style.animationDuration = (5 + Math.random() * 5) + "s";
+        flor.style.fontSize = (20 + Math.random() * 30) + "px";
 
+        document.body.appendChild(flor);
+    }
+}
+
+// 🎵 INICIO CON CLICK (sorpresa)
+function iniciar() {
+    document.querySelector(".start-btn").style.display = "none";
+    document.getElementById("contenido").style.display = "block";
+
+    let audio = document.getElementById("musica");
+    audio.play();
+
+    crearFlores();
+
+    escribirTexto("text1", texto1, 40);
+    setTimeout(() => {
+        escribirTexto("text2", texto2, 40);
+    }, 2000);
+}
 </script>
 
 </body>
