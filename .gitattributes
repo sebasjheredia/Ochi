@@ -73,7 +73,7 @@ h1 {
 
 <!-- 🎵 MÚSICA -->
 <audio controls autoplay loop>
- <source src="pielcanela.mp3" type="audio/mpeg">
+  <source src="pielcanela.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
