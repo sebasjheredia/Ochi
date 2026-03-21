@@ -3,38 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <title>Para ti 💛</title>
+
 <style>
-    body {
-        background: linear-gradient(#2b0040, #5a0080);
-        color: white;
-        text-align: center;
-        font-family: Arial;
-        padding: 50px;
-    }
-    h1 {
-        color: yellow;
-    }
-    .flower {
-        font-size: 80px;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    color: white;
+    text-align: center;
+
+    /* 🔥 FONDO (luego cambiamos con tus imágenes) */
+    background: url('https://i.imgur.com/8Km9tLL.jpg') no-repeat center center/cover;
+}
+
+/* Fondo oscuro para que se lea */
+.overlay {
+    background: rgba(0,0,0,0.6);
+    height: 100vh;
+    padding-top: 50px;
+}
+
+h1 {
+    color: yellow;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.box {
+    width: 40%;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 200px;
+}
+
+.flower {
+    font-size: 60px;
+}
+
+/* Cursor tipo escritura */
+.cursor {
+    display: inline-block;
+    background: white;
+    width: 2px;
+    height: 20px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
 </style>
 </head>
+
 <body>
+
+<div class="overlay">
 
 <div class="flower">🌻🌻🌻</div>
 
-<h1>Para ti, mi amor 💛</h1>
+<h1>Para ti 💛</h1>
 
-<p>
-Como un girasol que busca el sol,<br>
-yo siempre te busco a ti.<br><br>
+<!-- 🎵 MÚSICA -->
+<audio controls autoplay loop>
+  <source src="TU_LINK_DE_MUSICA.mp3" type="audio/mpeg">
+</audio>
 
-Eres mi alegría, mi paz,<br>
-y la razón de muchas sonrisas.<br><br>
+<div class="container">
 
-Te hice este pequeño detalle<br>
-porque te quiero mucho 🌻
-</p>
+    <!-- TEXTO 1 -->
+    <div class="box">
+        <p id="text1"></p>
+    </div>
+
+    <!-- TEXTO 2 -->
+    <div class="box">
+        <p id="text2"></p>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+// ✍️ TEXTO (tú lo cambias luego)
+let texto1 = "Escribe aquí lo que quieras para ella...";
+let texto2 = "Otra parte del mensaje bonito...";
+
+function escribirTexto(id, texto, velocidad) {
+    let i = 0;
+    function escribir() {
+        if (i < texto.length) {
+            document.getElementById(id).innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(escribir, velocidad);
+        }
+    }
+    escribir();
+}
+
+// Ejecutar
+escribirTexto("text1", texto1, 50);
+setTimeout(() => {
+    escribirTexto("text2", texto2, 50);
+}, 2000);
+
+</script>
 
 </body>
 </html>
