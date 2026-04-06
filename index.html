@@ -6,7 +6,7 @@
 <title>Para mi Princesita ❤️</title>
 
 <style> 
-body {
+body { 
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', cursive;
@@ -156,7 +156,7 @@ body {
 <canvas id="estrellas"></canvas>
 
 <div class="start-btn" onclick="iniciar()">
-🖤 Feliz mesiversario mi princesita, toca aquí 😉 🖤
+🖤 Feliz mesiversario 3.10 mi princesita, toca aquí 😉 🖤
 </div>
 
 <audio id="musica" loop preload="auto">
@@ -203,7 +203,7 @@ body {
 💌 Mensaje secreto
 </button>
 
-<div id="secreto" style="display:none; margin-top:20px; color:red;">
+<div id="secreto" style="display:none; margin-top:20px; color:#000000;">
 ✨ (Shhh, no le digas a mi Ochi que la adoro, que quiero que se me cuide mucho y que se lave el pupo. Ella es lo más valioso que tengo; amo a mi chiquita con olor a patitas.) ✨
 </div>
 
@@ -246,7 +246,7 @@ animarEstrellas();
 // TEXTOS
 let texto1=`Hoy cumplimos otro mes juntos ❤️`;
 let texto2=`Mi cielo, mi vida entera... 🌻✨
-Hoy, mientras el mundo sigue girando a mil por hora, me detuve un instante y me puse a pensar en nuestra historia. 45 meses... casi cuatro años, mi amor. 
+Hoy, mientras el mundo sigue girando a mil por hora, me detuve un instante y me puse a pensar en nuestra historia. 46 meses... casi cuatro años, mi amor. 
 Y se me eriza la piel al pensar que no ha pasado ni un solo día en el que no agradezca haberte encontrado. Hemos pasado por días de sol brillante y otros donde el cielo se nos caía encima, pero mírame, 
 aquí sigo, con el corazón intacto y más enamorado que el primer día, porque incluso en medio de cualquier tormenta, tú siempre has sido mi calma, mi puerto, mi lugar seguro en este universo tan loco.
 Sé que a veces soy tu terremoto, que te hago reír cuando menos te lo esperas o que me paso de molestoso, pero es que me maravilla la mujer que tengo al lado. No tienes idea de cómo admiro tu fuerza, 
@@ -254,7 +254,7 @@ la pasión que le pones a cada cosa que haces. Me derrito viéndote ser tú, con
 (adoro esos ojitos) en cada gesto que tienes conmigo. Gracias por abrirme las puertas de tu mundo, por confiar en mí y, sobre todo, por elegirme un mes más para caminar de mi mano, para ser tu cómplice y tu compañero de vida.
 No quiero perfección, mi flaca. Quiero tu risa, tus dudas, tus ganas de comerte al mundo y también tus días de bajón, donde lo único que quiero es ser el refugio donde te escondes. Aquí voy a estar siempre: 
 para arroparte cuando haga frío, para darte esos masajitos en tus patitas cansadas, y para decirte al oído cada vez que lo necesites que eres, sin duda alguna, la mujer más increíble, berraca y hermosa que mis ojos hayan visto jamás.
-Felices 45 meses, mi vida. Gracias por existir, por ser mi motor y por hacerme el hombre más afortunado de esta tierra solo por tenerte. Te amo de una forma que no me cabe en el pecho, con todo lo que soy y con todo lo que tengo. ❤️
+Felices 46 meses, mi vida. Gracias por existir, por ser mi motor y por hacerme el hombre más afortunado de esta tierra solo por tenerte. Te amo de una forma que no me cabe en el pecho, con todo lo que soy y con todo lo que tengo. ❤️
 `;
 
 // MESES
@@ -343,6 +343,28 @@ function fadeInAudio(audio){
     }
 }
 
+function controlarAudioVideo(){
+    let audio = document.getElementById("musica");
+    let video = document.getElementById("video");
+
+    if(video && audio){
+
+        video.addEventListener("play", () => {
+            if(!audio.paused){
+                audio.pause();
+            }
+        });
+
+        video.addEventListener("pause", () => {
+            fadeInAudio(audio);
+        });
+
+        video.addEventListener("ended", () => {
+            fadeInAudio(audio);
+        });
+    }
+}
+
 // VIBRACION
 function vibrarCorazon(){
     if(navigator.vibrate){
@@ -365,7 +387,11 @@ function iniciar(){
     document.getElementById("titulo").innerHTML=
     "Feliz "+calcularMeses()+" meses juntos ❤️";
 
-    fadeInAudio(document.getElementById("musica"));
+    let audio = document.getElementById("musica");
+audio.muted = false;
+fadeInAudio(audio);
+
+controlarAudioVideo();
 
     crearParticulas();
     escribir("text1",texto1);
