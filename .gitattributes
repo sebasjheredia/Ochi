@@ -343,6 +343,28 @@ function fadeInAudio(audio){
     }
 }
 
+function controlarAudioVideo(){
+    let audio = document.getElementById("musica");
+    let video = document.getElementById("video");
+
+    if(video && audio){
+
+        video.addEventListener("play", () => {
+            if(!audio.paused){
+                audio.pause();
+            }
+        });
+
+        video.addEventListener("pause", () => {
+            fadeInAudio(audio);
+        });
+
+        video.addEventListener("ended", () => {
+            fadeInAudio(audio);
+        });
+    }
+}
+
 // VIBRACION
 function vibrarCorazon(){
     if(navigator.vibrate){
@@ -365,7 +387,11 @@ function iniciar(){
     document.getElementById("titulo").innerHTML=
     "Feliz "+calcularMeses()+" meses juntos ❤️";
 
-    fadeInAudio(document.getElementById("musica"));
+    let audio = document.getElementById("musica");
+audio.muted = false;
+fadeInAudio(audio);
+
+controlarAudioVideo();
 
     crearParticulas();
     escribir("text1",texto1);
