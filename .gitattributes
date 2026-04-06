@@ -157,7 +157,7 @@ body {
 🖤 Feliz mesiversario mi princesita, toca aquí 😉 🖤
 </div>
 
-<audio id="musica" loop>
+<audio id="musica" loop preload="auto">
   <source src="Cancion.mp3" type="audio/mpeg">
 </audio>
 
