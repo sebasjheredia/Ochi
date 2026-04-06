@@ -93,7 +93,7 @@ body {
 #contador {
     margin-top: 10px;
     font-size: 18px;
-    color: #ffcccc;
+    color: #000000;
 }
 
 /* GALERIA */
