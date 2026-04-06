@@ -17,6 +17,16 @@ body {
     overflow-x: hidden;
 }
 
+/* 🌌 ESTRELLAS */
+#estrellas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
 /* TITULO */
 .titulo-animado {
     color: red;
@@ -136,29 +146,19 @@ body {
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
-
-/* RESPONSIVE */
-@media (max-width:768px){
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .box, .video-box {
-        width: 90%;
-        margin-bottom: 20px;
-    }
-}
 </style>
 </head>
 
 <body>
+
+<canvas id="estrellas"></canvas>
 
 <div class="start-btn" onclick="iniciar()">
 🖤 Feliz mesiversario mi princesita, toca aquí 😉 🖤
 </div>
 
 <audio id="musica" loop>
-  <source src="I love you song.mp3" type="audio/mpeg">
+  <source src="Cancion.mp3" type="audio/mpeg">
 </audio>
 
 <div id="contenido">
@@ -194,44 +194,74 @@ body {
 
 <div class="infinito">Te amo infinito ♾️</div>
 
+<button onclick="mostrarSecreto()" style="margin-top:20px; padding:10px; border-radius:10px;">
+💌 Mensaje secreto
+</button>
+
+<div id="secreto" style="display:none; margin-top:20px;">
+✨ (aquí escribes tu mensaje 😏) ✨
+</div>
+
 </div>
 
 <script>
-// TEXTOS
-let texto1 = `Hoy cumplimos otro mes más juntos ❤️
-y no sabes lo feliz que soy de tenerte en mi vida...`;
+// 🌌 ESTRELLAS
+const canvas = document.getElementById("estrellas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-let texto2 = `Gracias por todo mi amor 🖤 Te amo muchísimo.`;
+let stars=[];
+for(let i=0;i<100;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*2,
+        speed:Math.random()*0.5
+    });
+}
+
+function animarEstrellas(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s=>{
+        ctx.fillStyle="white";
+        ctx.fillRect(s.x,s.y,s.size,s.size);
+        s.y+=s.speed;
+        if(s.y>canvas.height){s.y=0;}
+    });
+    requestAnimationFrame(animarEstrellas);
+}
+animarEstrellas();
+
+// TEXTOS
+let texto1=`Hoy cumplimos otro mes juntos ❤️`;
+let texto2=`Te amo muchísimo mi princesita 🖤`;
 
 // CALCULAR MESES
 function calcularMeses(){
-    let inicio = new Date(2022, 5, 6);
-    let hoy = new Date();
-
-    let total = (hoy.getFullYear()-inicio.getFullYear())*12 +
-                (hoy.getMonth()-inicio.getMonth());
-
-    if(hoy.getDate() < inicio.getDate()) total--;
+    let inicio=new Date(2022,5,6);
+    let hoy=new Date();
+    let total=(hoy.getFullYear()-inicio.getFullYear())*12+(hoy.getMonth()-inicio.getMonth());
+    if(hoy.getDate()<inicio.getDate()) total--;
     return total;
 }
 
-// CONTADOR TIEMPO REAL
+// CONTADOR
 function actualizarContador(){
-    let inicio = new Date(2022, 5, 6);
-    let ahora = new Date();
+    let inicio=new Date(2022,5,6);
+    let ahora=new Date();
+    let diff=ahora-inicio;
 
-    let diff = ahora - inicio;
+    let dias=Math.floor(diff/(1000*60*60*24));
+    let horas=Math.floor((diff/(1000*60*60))%24);
+    let min=Math.floor((diff/(1000*60))%60);
+    let seg=Math.floor((diff/1000)%60);
 
-    let dias = Math.floor(diff / (1000*60*60*24));
-    let horas = Math.floor((diff/(1000*60*60)) % 24);
-    let min = Math.floor((diff/(1000*60)) % 60);
-    let seg = Math.floor((diff/1000) % 60);
-
-    document.getElementById("contador").innerHTML =
-        `${dias} días ${horas}h ${min}m ${seg}s juntos ❤️`;
+    document.getElementById("contador").innerHTML=
+    `${dias} días ${horas}h ${min}m ${seg}s ❤️`;
 }
 
-// ESCRITURA
+// ESCRIBIR
 function escribir(id,texto){
     let i=0;
     let el=document.getElementById(id);
@@ -247,7 +277,7 @@ function escribir(id,texto){
 
 // PARTICULAS
 function crearParticulas(){
-    let emojis=["🌻","🌹","💖"];
+    let emojis=["🌻","🌹","🐣","🥰"];
     for(let i=0;i<40;i++){
         let e=document.createElement("div");
         e.classList.add("particle");
@@ -278,31 +308,21 @@ function fadeInAudio(audio){
     audio.play().catch(()=>{});
     let v=0;
     let i=setInterval(()=>{
-        if(v<1){ v+=0.02; audio.volume=v; }
+        if(v<1){v+=0.02; audio.volume=v;}
         else clearInterval(i);
     },200);
 }
 
-// CORAZONES CLICK
-function corazonesClick(x,y){
-    for(let i=0;i<10;i++){
-        let h=document.createElement("div");
-        h.innerHTML="🖤";
-        h.style.position="fixed";
-        h.style.left=x+"px";
-        h.style.top=y+"px";
-
-        let dx=(Math.random()-0.5)*100;
-        let dy=Math.random()*-150;
-
-        h.animate([
-            {transform:"translate(0,0)",opacity:1},
-            {transform:`translate(${dx}px,${dy}px)`,opacity:0}
-        ],{duration:1000});
-
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),1000);
+// ❤️ VIBRACION
+function vibrarCorazon(){
+    if(navigator.vibrate){
+        navigator.vibrate([200,100,200,100,400]);
     }
+}
+
+// 💌 MENSAJE
+function mostrarSecreto(){
+    document.getElementById("secreto").style.display="block";
 }
 
 // INICIAR
@@ -310,12 +330,13 @@ function iniciar(){
     document.querySelector(".start-btn").style.display="none";
     document.getElementById("contenido").style.display="block";
 
-    let meses = calcularMeses();
-    document.getElementById("titulo").innerHTML =
-        "Feliz " + meses + " meses juntos mi princesita ❤️";
+    vibrarCorazon();
 
-    let audio=document.getElementById("musica");
-    fadeInAudio(audio);
+    let meses=calcularMeses();
+    document.getElementById("titulo").innerHTML=
+    "Feliz "+meses+" meses juntos ❤️";
+
+    fadeInAudio(document.getElementById("musica"));
 
     crearParticulas();
     escribir("text1",texto1);
@@ -324,10 +345,6 @@ function iniciar(){
 
     setInterval(actualizarContador,1000);
 }
-
-document.querySelector(".start-btn").addEventListener("click",(e)=>{
-    corazonesClick(e.clientX,e.clientY);
-});
 </script>
 
 </body>
