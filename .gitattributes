@@ -203,8 +203,8 @@ body {
 💌 Mensaje secreto
 </button>
 
-<div id="secreto" style="display:none; margin-top:20px;">
-✨ (aquí escribes tu mensaje 😏) ✨
+<div id="secreto" style="display:none; margin-top:20px; color:red;">
+✨ (Shhh, no le digas a mi Ochi que la adoro, que quiero que se me cuide mucho y que se lave el pupo. Ella es lo más valioso que tengo; amo a mi chiquita con olor a patitas.) ✨
 </div>
 
 </div>
