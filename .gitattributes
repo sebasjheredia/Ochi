@@ -141,9 +141,7 @@ body {
 
 <div id="contenido">
 
-<h1 style="color: yellow; -webkit-text-stroke: 2px black;">
-Feliz mesiversario Amor mio 🌻❤️
-</h1>
+<h1 id="titulo" class="titulo-animado"></h1>
 
 <div class="gallery">
   <img src="imagen1.jpeg">
@@ -175,8 +173,13 @@ Feliz mesiversario Amor mio 🌻❤️
 
 <script>
 // TEXTOS
-let texto1 = `        `;
-let texto2 = `        ❤️`;
+let texto1 = `Hoy cumplimos otro mes más juntos ❤️
+y no sabes lo feliz que soy de tenerte en mi vida.
+Cada momento contigo es especial, cada recuerdo contigo vale oro...`;
+
+let texto2 = `Gracias por estar conmigo, por tu amor, tu paciencia
+y por hacerme sentir el chico más afortunado del mundo.
+Te amo muchísimo mi princesita 🖤`;
 
 // ESCRITURA
 function escribir(id,texto){
@@ -276,6 +279,37 @@ function iniciar(){
         transform: translateX(0);
     }
 }
+
+function corazonesClick(x, y){
+    for(let i=0;i<10;i++){
+        let h = document.createElement("div");
+        h.innerHTML = "🖤";
+        h.style.position = "fixed";
+        h.style.left = x + "px";
+        h.style.top = y + "px";
+        h.style.fontSize = "20px";
+        h.style.pointerEvents = "none";
+
+        let dx = (Math.random() - 0.5) * 100;
+        let dy = Math.random() * -150;
+
+        h.animate([
+            {transform: "translate(0,0)", opacity:1},
+            {transform: `translate(${dx}px, ${dy}px)`, opacity:0}
+        ], {
+            duration: 1000
+        });
+
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),1000);
+    }
+}
+
+document.querySelector(".start-btn").addEventListener("click", (e)=>{
+    corazonesClick(e.clientX, e.clientY);
+});
+
 </script>
 
 </body>
