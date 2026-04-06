@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para mi Princesita ❤️</title>
 
-<style>
+<style> 
 body {
     margin: 0;
     padding: 0;
@@ -92,8 +92,10 @@ body {
 /* CONTADOR */
 #contador {
     margin-top: 10px;
-    font-size: 18px;
-    color: #ffcccc;
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+    text-shadow: 0 0 10px red;
 }
 
 /* GALERIA */
@@ -157,7 +159,7 @@ body {
 🖤 Feliz mesiversario mi princesita, toca aquí 😉 🖤
 </div>
 
-<audio id="musica" loop>
+<audio id="musica" loop preload="auto">
   <source src="Cancion.mp3" type="audio/mpeg">
 </audio>
 
@@ -175,6 +177,9 @@ body {
   <img src="imagen6.jpeg">
   <img src="imagen7.jpeg">
   <img src="imagen8.jpeg">
+  <img src="imagen9.jpeg">
+  <img src="imagen10.jpeg">
+  <img src="imagen11.jpeg">
 </div>
 
 <div class="container">
@@ -198,36 +203,41 @@ body {
 💌 Mensaje secreto
 </button>
 
-<div id="secreto" style="display:none; margin-top:20px;">
-✨ (aquí escribes tu mensaje 😏) ✨
+<div id="secreto" style="display:none; margin-top:20px; color:red;">
+✨ (Shhh, no le digas a mi Ochi que la adoro, que quiero que se me cuide mucho y que se lave el pupo. Ella es lo más valioso que tengo; amo a mi chiquita con olor a patitas.) ✨
 </div>
 
 </div>
 
 <script>
-// 🌌 ESTRELLAS
+// 🌌 ESTRELLAS RESPONSIVE
 const canvas = document.getElementById("estrellas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
-let stars=[];
-for(let i=0;i<100;i++){
-    stars.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        size:Math.random()*2,
-        speed:Math.random()*0.5
-    });
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let stars = Array.from({length:100}, ()=>({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: Math.random()*2,
+    speed: Math.random()*0.5
+}));
 
 function animarEstrellas(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     stars.forEach(s=>{
         ctx.fillStyle="white";
         ctx.fillRect(s.x,s.y,s.size,s.size);
-        s.y+=s.speed;
-        if(s.y>canvas.height){s.y=0;}
+        s.y += s.speed;
+        if(s.y > canvas.height){
+            s.y = 0;
+            s.x = Math.random()*canvas.width;
+        }
     });
     requestAnimationFrame(animarEstrellas);
 }
@@ -235,9 +245,19 @@ animarEstrellas();
 
 // TEXTOS
 let texto1=`Hoy cumplimos otro mes juntos ❤️`;
-let texto2=`Te amo muchísimo mi princesita 🖤`;
+let texto2=`Mi cielo, mi vida entera... 🌻✨
+Hoy, mientras el mundo sigue girando a mil por hora, me detuve un instante y me puse a pensar en nuestra historia. 45 meses... casi cuatro años, mi amor. 
+Y se me eriza la piel al pensar que no ha pasado ni un solo día en el que no agradezca haberte encontrado. Hemos pasado por días de sol brillante y otros donde el cielo se nos caía encima, pero mírame, 
+aquí sigo, con el corazón intacto y más enamorado que el primer día, porque incluso en medio de cualquier tormenta, tú siempre has sido mi calma, mi puerto, mi lugar seguro en este universo tan loco.
+Sé que a veces soy tu terremoto, que te hago reír cuando menos te lo esperas o que me paso de molestoso, pero es que me maravilla la mujer que tengo al lado. No tienes idea de cómo admiro tu fuerza, 
+la pasión que le pones a cada cosa que haces. Me derrito viéndote ser tú, con esa esencia única, con esa ternura que, aunque a veces es silenciosa, yo la siento vibrar en cada detalle, en cada mirada, 
+(adoro esos ojitos) en cada gesto que tienes conmigo. Gracias por abrirme las puertas de tu mundo, por confiar en mí y, sobre todo, por elegirme un mes más para caminar de mi mano, para ser tu cómplice y tu compañero de vida.
+No quiero perfección, mi flaca. Quiero tu risa, tus dudas, tus ganas de comerte al mundo y también tus días de bajón, donde lo único que quiero es ser el refugio donde te escondes. Aquí voy a estar siempre: 
+para arroparte cuando haga frío, para darte esos masajitos en tus patitas cansadas, y para decirte al oído cada vez que lo necesites que eres, sin duda alguna, la mujer más increíble, berraca y hermosa que mis ojos hayan visto jamás.
+Felices 45 meses, mi vida. Gracias por existir, por ser mi motor y por hacerme el hombre más afortunado de esta tierra solo por tenerte. Te amo de una forma que no me cabe en el pecho, con todo lo que soy y con todo lo que tengo. ❤️
+`;
 
-// CALCULAR MESES
+// MESES
 function calcularMeses(){
     let inicio=new Date(2022,5,6);
     let hoy=new Date();
@@ -249,8 +269,7 @@ function calcularMeses(){
 // CONTADOR
 function actualizarContador(){
     let inicio=new Date(2022,5,6);
-    let ahora=new Date();
-    let diff=ahora-inicio;
+    let diff=new Date()-inicio;
 
     let dias=Math.floor(diff/(1000*60*60*24));
     let horas=Math.floor((diff/(1000*60*60))%24);
@@ -265,14 +284,12 @@ function actualizarContador(){
 function escribir(id,texto){
     let i=0;
     let el=document.getElementById(id);
-    function t(){
+    (function t(){
         if(i<texto.length){
-            el.innerHTML+=texto[i];
-            i++;
+            el.innerHTML+=texto[i++];
             setTimeout(t,20);
         }
-    }
-    t();
+    })();
 }
 
 // PARTICULAS
@@ -280,8 +297,8 @@ function crearParticulas(){
     let emojis=["🌻","🌹","🐣","🥰"];
     for(let i=0;i<40;i++){
         let e=document.createElement("div");
-        e.classList.add("particle");
-        e.innerHTML=emojis[Math.floor(Math.random()*3)];
+        e.className="particle";
+        e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
         e.style.left=Math.random()*100+"vw";
         e.style.fontSize=(15+Math.random()*20)+"px";
         e.style.animationDuration=(6+Math.random()*6)+"s";
@@ -290,51 +307,63 @@ function crearParticulas(){
 }
 
 // GALERIA
-let index=0;
 function iniciarGaleria(){
+    let index=0;
     let images=document.querySelectorAll(".gallery img");
+
     function cambiar(){
         images.forEach(img=>img.classList.remove("active"));
         images[index].classList.add("active");
         index=(index+1)%images.length;
     }
+
     cambiar();
     setInterval(cambiar,3000);
 }
 
-// AUDIO
+// AUDIO FIX PRO
 function fadeInAudio(audio){
-    audio.volume=0;
-    audio.play().catch(()=>{});
-    let v=0;
-    let i=setInterval(()=>{
-        if(v<1){v+=0.02; audio.volume=v;}
-        else clearInterval(i);
-    },200);
+    audio.muted = false;
+    audio.volume = 0;
+
+    let playPromise = audio.play();
+
+    if(playPromise){
+        playPromise.then(()=>{
+            let v=0;
+            let i=setInterval(()=>{
+                if(v<1){
+                    v+=0.02;
+                    audio.volume=v;
+                } else clearInterval(i);
+            },200);
+        }).catch(()=>{
+            alert("Toca otra vez para activar el sonido ❤️");
+        });
+    }
 }
 
-// ❤️ VIBRACION
+// VIBRACION
 function vibrarCorazon(){
     if(navigator.vibrate){
         navigator.vibrate([200,100,200,100,400]);
     }
 }
 
-// 💌 MENSAJE
+// MENSAJE
 function mostrarSecreto(){
     document.getElementById("secreto").style.display="block";
 }
 
-// INICIAR
+// INICIO
 function iniciar(){
     document.querySelector(".start-btn").style.display="none";
     document.getElementById("contenido").style.display="block";
 
     vibrarCorazon();
 
-    let meses=calcularMeses();
     document.getElementById("titulo").innerHTML=
-    "Feliz "+meses+" meses juntos ❤️";
+    "Feliz "+calcularMeses()+" meses juntos ❤️";
 
     fadeInAudio(document.getElementById("musica"));
 
@@ -343,6 +372,7 @@ function iniciar(){
     setTimeout(()=>escribir("text2",texto2),2000);
     iniciarGaleria();
 
+    actualizarContador();
     setInterval(actualizarContador,1000);
 }
 </script>
