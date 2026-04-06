@@ -156,7 +156,7 @@ body {
 <canvas id="estrellas"></canvas>
 
 <div class="start-btn" onclick="iniciar()">
-🖤 Feliz mesiversario mi princesita, toca aquí 😉 🖤
+🖤 Feliz mesiversario 3.10 mi princesita, toca aquí 😉 🖤
 </div>
 
 <audio id="musica" loop preload="auto">
