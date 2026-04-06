@@ -304,13 +304,26 @@ function iniciarGaleria(){
 
 // AUDIO
 function fadeInAudio(audio){
-    audio.volume=0;
-    audio.play().catch(()=>{});
-    let v=0;
-    let i=setInterval(()=>{
-        if(v<1){v+=0.02; audio.volume=v;}
-        else clearInterval(i);
-    },200);
+    audio.volume = 0;
+
+    let playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            let v = 0;
+            let i = setInterval(()=>{
+                if(v < 1){
+                    v += 0.02;
+                    audio.volume = v;
+                } else {
+                    clearInterval(i);
+                }
+            },200);
+        }).catch(err => {
+            console.log("Error al reproducir:", err);
+            alert("Toca nuevamente la pantalla para activar el audio ❤️");
+        });
+    }
 }
 
 // ❤️ VIBRACION
