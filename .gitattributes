@@ -3,10 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para mi Princesita 🌻❤️</title>
+<title>Para mi Princesita ❤️</title>
 
 <style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', cursive;
+    color: white;
+    text-align: center;
+    background: url("Snoopy.jpg") no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
 
+/* TITULO */
 .titulo-animado {
     color: red;
     -webkit-text-stroke: 1px black;
@@ -16,47 +27,26 @@
 }
 
 @keyframes aparecerIzq {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    to { opacity: 1; transform: translateX(0); }
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
-    color: white;
-    text-align: center;
-
-    /* 🔥 FONDO FINAL CORREGIDO */
-    background: url("Snoopy.jpg") no-repeat center center fixed;
-    background-size: cover;
-
-    overflow-x: hidden;
-}
-
-/* BOTÓN */
+/* BOTON */
 .start-btn {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
-    width: 80%;
-    max-width: 400px;
+    width: 85%;
+    max-width: 420px;
     padding: 25px;
-
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("Snoopy.jpg");
     background-size: cover;
     background-position: center;
-
     color: white;
     font-size: 18px;
     border-radius: 20px;
     cursor: pointer;
     z-index: 9999;
-
     box-shadow: 0 0 25px rgba(255,0,0,0.7);
     border: 2px solid red;
 }
@@ -78,7 +68,6 @@ body {
     padding: 20px;
 }
 
-/* TEXTO */
 .box {
     width: 40%;
     background: rgba(0,0,0,0.4);
@@ -86,25 +75,18 @@ body {
     border-radius: 15px;
 }
 
-/* VIDEO */
 .video-box {
     width: 40%;
 }
 
-/* 🌻🌹💖 PARTÍCULAS */
-.particle {
-    position: fixed;
-    top: -10%;
-    animation: caer linear infinite;
-    opacity: 0.8;
+/* CONTADOR */
+#contador {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #ffcccc;
 }
 
-@keyframes caer {
-    0% { transform: translateY(-10%) translateX(0) rotate(0deg); }
-    100% { transform: translateY(110vh) translateX(30px) rotate(360deg); }
-}
-
-/* 📸 GALERÍA */
+/* GALERIA */
 .gallery {
     width: 300px;
     height: 300px;
@@ -121,14 +103,38 @@ body {
     position: absolute;
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 🔥 centradas sin recorte */
-    object-position: center;
+    object-fit: contain;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s;
 }
 
 .gallery img.active {
     opacity: 1;
+}
+
+/* PARTICULAS */
+.particle {
+    position: fixed;
+    top: -10%;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* TE AMO INFINITO */
+.infinito {
+    font-size: 30px;
+    margin-top: 40px;
+    color: red;
+    animation: latido 1s infinite;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 /* RESPONSIVE */
@@ -158,6 +164,7 @@ body {
 <div id="contenido">
 
 <h1 id="titulo" class="titulo-animado"></h1>
+<div id="contador"></div>
 
 <div class="gallery">
   <img src="imagen1.jpeg">
@@ -185,17 +192,44 @@ body {
 
 </div>
 
+<div class="infinito">Te amo infinito ♾️</div>
+
 </div>
 
 <script>
 // TEXTOS
 let texto1 = `Hoy cumplimos otro mes más juntos ❤️
-y no sabes lo feliz que soy de tenerte en mi vida.
-Cada momento contigo es especial, cada recuerdo contigo vale oro...`;
+y no sabes lo feliz que soy de tenerte en mi vida...`;
 
-let texto2 = `Gracias por estar conmigo, por tu amor, tu paciencia
-y por hacerme sentir el chico más afortunado del mundo.
-Te amo muchísimo mi princesita 🖤`;
+let texto2 = `Gracias por todo mi amor 🖤 Te amo muchísimo.`;
+
+// CALCULAR MESES
+function calcularMeses(){
+    let inicio = new Date(2022, 5, 6);
+    let hoy = new Date();
+
+    let total = (hoy.getFullYear()-inicio.getFullYear())*12 +
+                (hoy.getMonth()-inicio.getMonth());
+
+    if(hoy.getDate() < inicio.getDate()) total--;
+    return total;
+}
+
+// CONTADOR TIEMPO REAL
+function actualizarContador(){
+    let inicio = new Date(2022, 5, 6);
+    let ahora = new Date();
+
+    let diff = ahora - inicio;
+
+    let dias = Math.floor(diff / (1000*60*60*24));
+    let horas = Math.floor((diff/(1000*60*60)) % 24);
+    let min = Math.floor((diff/(1000*60)) % 60);
+    let seg = Math.floor((diff/1000) % 60);
+
+    document.getElementById("contador").innerHTML =
+        `${dias} días ${horas}h ${min}m ${seg}s juntos ❤️`;
+}
 
 // ESCRITURA
 function escribir(id,texto){
@@ -205,112 +239,95 @@ function escribir(id,texto){
         if(i<texto.length){
             el.innerHTML+=texto[i];
             i++;
-            setTimeout(t,10);
+            setTimeout(t,20);
         }
     }
     t();
 }
 
-// 🌻🌹🥰🐣 PARTÍCULAS
+// PARTICULAS
 function crearParticulas(){
     let emojis=["🌻","🌹","💖"];
-    for(let i=0;i<50;i++){
+    for(let i=0;i<40;i++){
         let e=document.createElement("div");
         e.classList.add("particle");
-        e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-
+        e.innerHTML=emojis[Math.floor(Math.random()*3)];
         e.style.left=Math.random()*100+"vw";
-        e.style.fontSize=(15+Math.random()*25)+"px";
+        e.style.fontSize=(15+Math.random()*20)+"px";
         e.style.animationDuration=(6+Math.random()*6)+"s";
-        e.style.opacity=Math.random();
-
         document.body.appendChild(e);
     }
 }
 
-// 📸 GALERÍA
-let index = 0;
-let images;
-
+// GALERIA
+let index=0;
 function iniciarGaleria(){
-    images = document.querySelectorAll(".gallery img");
-
+    let images=document.querySelectorAll(".gallery img");
     function cambiar(){
-        images.forEach(img => img.classList.remove("active"));
+        images.forEach(img=>img.classList.remove("active"));
         images[index].classList.add("active");
-        index = (index + 1) % images.length;
+        index=(index+1)%images.length;
     }
-
     cambiar();
-    setInterval(cambiar, 3000);
+    setInterval(cambiar,3000);
 }
 
-// 🎵 MÚSICA SUAVE
+// AUDIO
 function fadeInAudio(audio){
-    audio.volume = 0;
+    audio.volume=0;
     audio.play().catch(()=>{});
-
-    let vol = 0;
-    let interval = setInterval(()=>{
-        if(vol < 1){
-            vol += 0.02;
-            audio.volume = vol;
-        } else {
-            clearInterval(interval);
-        }
-    }, 200);
+    let v=0;
+    let i=setInterval(()=>{
+        if(v<1){ v+=0.02; audio.volume=v; }
+        else clearInterval(i);
+    },200);
 }
 
-// INICIO
-function iniciar(){
-    document.querySelector(".start-btn").style.display = "none";
-    document.getElementById("contenido").style.display = "block";
-
-    let audio = document.getElementById("musica");
-    fadeInAudio(audio);
-
-    let video = document.getElementById("video");
-    if(video){
-        video.play().catch(()=>{});
-    }
-
-    crearParticulas();
-    escribir("text1", texto1);
-    setTimeout(()=>escribir("text2", texto2),2000);
-
-    iniciarGaleria();
-}
-
-function corazonesClick(x, y){
+// CORAZONES CLICK
+function corazonesClick(x,y){
     for(let i=0;i<10;i++){
-        let h = document.createElement("div");
-        h.innerHTML = "🖤";
-        h.style.position = "fixed";
-        h.style.left = x + "px";
-        h.style.top = y + "px";
-        h.style.fontSize = "20px";
-        h.style.pointerEvents = "none";
+        let h=document.createElement("div");
+        h.innerHTML="🖤";
+        h.style.position="fixed";
+        h.style.left=x+"px";
+        h.style.top=y+"px";
 
-        let dx = (Math.random() - 0.5) * 100;
-        let dy = Math.random() * -150;
+        let dx=(Math.random()-0.5)*100;
+        let dy=Math.random()*-150;
 
         h.animate([
-            {transform: "translate(0,0)", opacity:1},
-            {transform: `translate(${dx}px, ${dy}px)`, opacity:0}
-        ], {
-            duration: 1000
-        });
+            {transform:"translate(0,0)",opacity:1},
+            {transform:`translate(${dx}px,${dy}px)`,opacity:0}
+        ],{duration:1000});
 
         document.body.appendChild(h);
-
         setTimeout(()=>h.remove(),1000);
     }
 }
 
-document.querySelector(".start-btn").addEventListener("click", (e)=>{
-    corazonesClick(e.clientX, e.clientY);
-});
+// INICIAR
+function iniciar(){
+    document.querySelector(".start-btn").style.display="none";
+    document.getElementById("contenido").style.display="block";
 
+    let meses = calcularMeses();
+    document.getElementById("titulo").innerHTML =
+        "Feliz " + meses + " meses juntos mi princesita ❤️";
+
+    let audio=document.getElementById("musica");
+    fadeInAudio(audio);
+
+    crearParticulas();
+    escribir("text1",texto1);
+    setTimeout(()=>escribir("text2",texto2),2000);
+    iniciarGaleria();
+
+    setInterval(actualizarContador,1000);
+}
+
+document.querySelector(".start-btn").addEventListener("click",(e)=>{
+    corazonesClick(e.clientX,e.clientY);
+});
 </script>
 
 </body>
